@@ -73,7 +73,7 @@ class Program
         animais = novoArray;
 
 
-        Console.WriteLine("✅ Animal cadastrado com sucesso!");
+        Console.WriteLine("Animal cadastrado com sucesso!");
     }
 
     static void ListarAnimais()
@@ -114,7 +114,7 @@ class Program
         }
         else
         {
-            Console.WriteLine("❌ Animal não encontrado!");
+            Console.WriteLine("Animal não encontrado!");
         }
     }
 }
