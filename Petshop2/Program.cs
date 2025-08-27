@@ -43,7 +43,7 @@ class Program
         Console.Write("Digite a idade do animal: ");
         int idade = int.Parse(Console.ReadLine());
 
-        Console.WriteLine("Escolha o tipo do animal:");
+        Console.WriteLine("Escolha a espécie do animal:");
         Console.WriteLine("1 - Cachorro");
         Console.WriteLine("2 - Gato");
         Console.Write("Opção: ");
