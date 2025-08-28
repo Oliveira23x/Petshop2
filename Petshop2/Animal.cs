@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -15,6 +15,10 @@ namespace Petshop2
     {
         public string nome;
 
+        private string telefone;
+
+        private string Dono;
+        
 
         private int idade { get; set; }
 
@@ -38,21 +42,48 @@ namespace Petshop2
             }
         }
 
-        public Animal(string nome, int idade)
+        public string novoTelefone
+        {
+
+            get { return telefone; }
+            set
+            {
+                if ( telefone != value) {
+
+            }
+        }
+        }
+
+        public string novoDono
+        {
+            get { return Dono; }
+            set
+            {
+                if (Dono != value) // verifica se o novo valor é diferente do atual
+                {
+                }
+            }
+        }
+
+
+        public Animal(string nome, int idade, string telefone, string Dono)
 
         {
             this.nome = nome;
 
+            this.Dono = Dono;
+
+            this.telefone = telefone;
 
             this.idade = idade;
 
         }
-
+        
         public virtual void Atender()
         {
             Console.WriteLine($"Atendendo {nome}");
         }
     }
-
-
 }
+
+
