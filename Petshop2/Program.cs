@@ -1,5 +1,7 @@
 using System;
+using System.ComponentModel.Design;
 using Petshop2;
+using Petshop2.Petshop2;
 
 class Program
 {
@@ -7,7 +9,7 @@ class Program
 
     static void Main(string[] args)
     {
-        int opcao;
+        int opcao; // variável para armazenar a opção do usuário
 
         do
         {
@@ -32,110 +34,114 @@ class Program
                 Atender();
             }
 
-        } while (opcao != 4) ; // só sai quando escolher 4
+        } while (opcao != 4); // só sai quando escolher 4
 
 
 
 
-            static void CadastrarAnimal()
+        static void CadastrarAnimal()
+        {
+            Console.Write("\nDigite o nome do animal: ");
+            string nome = Console.ReadLine();
+
+            Console.Write("Digite a idade do animal: ");
+            int idade = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite o telefone do dono: ");
+            string telefone = Console.ReadLine();
+
+            Console.Write("Digite o nome do dono: ");
+            string dono = Console.ReadLine();
+
+            Console.WriteLine("Escolha a espécie do animal:");
+            Console.WriteLine("1 - Cachorro");
+            Console.WriteLine("2 - Gato");
+            Console.WriteLine("3 - Aves");
+            Console.Write("Escolhas as opções acima: ");
+            int especie = int.Parse(Console.ReadLine());
+
+
+            // Criar o animal com base na espécie escolhida
+            Animal novoAnimal;
+
+            if (especie == 1)
             {
-                Console.Write("\nDigite o nome do animal: ");
-                string nome = Console.ReadLine();
+                novoAnimal = new Cachorro(nome, idade, telefone, dono);
+            }
+            else
+            {
+                novoAnimal = new Gato(nome, idade, telefone, dono);
 
-                Console.Write("Digite a idade do animal: ");
-                int idade = int.Parse(Console.ReadLine());
+            }
+            if (especie == 3)
 
-                Console.Write("Digite o telefone do dono: ");
-                string telefone = Console.ReadLine();
+            {
+                novoAnimal = new Aves(nome, idade, telefone, dono);
 
-                Console.Write("Digite o nome do dono: ");
-                string dono = Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Espécie inválida! Animal não cadastrado.");
 
-                Console.WriteLine("Escolha a espécie do animal:");
-                Console.WriteLine("1 - Cachorro");
-                Console.WriteLine("2 - Gato");
-                Console.WriteLine("3 - Aves");
-                Console.Write("Escolhas as opções acima: ");
-                int especie = int.Parse(Console.ReadLine());
-
-
-                // Exemplo: sempre cria um gato
-                Animal novoAnimal;
-
-                if (especie == 1)
-                {
-                    novoAnimal = new Cachorro(nome, idade, telefone, dono);
-                }
-                else
-                {
-                    novoAnimal = new Gato(nome, idade, telefone, dono);
-
-                }
-                if (especie == 3)
-
-                {
-                    novoAnimal = new Aves(nome, idade, telefone, dono);
-                }
-
-                Animal[] novoArray = new Animal[animais.Length + 1];
-
-                for (int i = 0; i < animais.Length; i++)
-                {
-                    novoArray[i] = animais[i];
-                }
-
-                novoArray[novoArray.Length - 1] = novoAnimal;
-                animais = novoArray;
-
-
-                Console.WriteLine("Animal cadastrado com sucesso!");
             }
 
-            static void ListarAnimais()
+
+            Animal[] novoArray = new Animal[animais.Length + 1]; // Cria um novo array com espaço para mais um animal
+
+            for (int i = 0; i < animais.Length; i++)
             {
-                Console.WriteLine("\nLista de Animais:");
-
-                if (animais.Length == 0)
-                {
-                    Console.WriteLine("Nenhum animal cadastrado.");
-                    return;
-                }
-
-                for (int i = 0; i < animais.Length; i++)
-                {
-                    Console.WriteLine($"Nome: {animais[i].nome}, Idade: {animais[i].novaIdade}, Telefone: {animais[i].novoTelefone}, Dono: {animais[i].novoDono}");
-                }
+                novoArray[i] = animais[i];
             }
 
-            static void Atender()
-            {
-                Console.Write("\nDigite o nome do animal a ser atendido: ");
-                string nome = Console.ReadLine();
+            novoArray[novoArray.Length - 1] = novoAnimal;
+            animais = novoArray;
 
-                Animal animalParaAtender = null;
 
-                for (int i = 0; i < animais.Length; i++)
-                {
-                    if (animais[i].nome == nome)
-                    {
-                        animalParaAtender = animais[i];
-                        break;
-                    }
-                }
-
-                if (animalParaAtender != null)
-                {
-                    animalParaAtender.Atender();
-                }
-                else
-                {
-                    Console.WriteLine("Animal não encontrado!");
-                }
-
-              
-            }
-        }
+            Console.WriteLine("Animal cadastrado com sucesso!");
         }
 
-        
+        static void ListarAnimais()
+        {
+            Console.WriteLine("\nLista de Animais:");
 
+            if (animais.Length == 0)
+            {
+                Console.WriteLine("Nenhum animal cadastrado.");
+                return;
+            }
+
+            for (int i = 0; i < animais.Length; i++)
+            {
+                Console.WriteLine($"Nome: {animais[i].nome}, Idade: {animais[i].novaIdade}, Telefone: {animais[i].novoTelefone}, Dono: {animais[i].novoDono}"); // Acessa as propriedades públicas
+            }
+        }
+
+        static void Atender()
+        {
+            Console.Write("\nDigite o nome do animal a ser atendido: ");
+            string nome = Console.ReadLine();
+
+            Animal animalParaAtender = null;
+
+            for (int i = 0; i < animais.Length; i++) // Percorre o array para encontrar o animal pelo nome
+            {
+                if (animais[i].nome == nome) // Compara o nome
+                {
+                    animalParaAtender = animais[i];
+                    break;
+                }
+            }
+
+            if (animalParaAtender != null) // Se encontrou o animal
+            {
+                animalParaAtender.Atender();
+            }
+            else
+            {
+                Console.WriteLine("Animal não encontrado!");
+            }
+
+
+        }
+    }
+}
